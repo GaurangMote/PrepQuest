@@ -25,17 +25,20 @@ const upload = multer({ storage: storage });
 
 router.post('/', upload.single('resume'), async (req, res) => {
     try {
+        console.log('Hi');
         const filePath = path.join(__dirname, '../uploads',req.file.filename);
         const dataBuffer = await fs.readFile(filePath);
         const pdfData = await pdfParse(dataBuffer);
 
         const pdfText = pdfData.text;
+        console.log('Two');
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
         const header = "Provide me with 30 interview question and answers for the below resume data\n ";
         const prompt = header+pdfText;
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const questions = response.text();
+        console.log('Three');
         
         const locals = {
             title : 'Get Questions',
