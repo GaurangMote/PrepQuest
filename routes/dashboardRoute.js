@@ -57,4 +57,8 @@ router.post('/', upload.single('resume'), async (req, res) => {
     }
 });
 
+router.post('/skill', dashboardCtrl.registerSkill);
+
+router.post('/search', dashboardCtrl.searchSkill);
+
 module.exports = router;
