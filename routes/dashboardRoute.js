@@ -33,7 +33,7 @@ router.post('/', upload.single('resume'), async (req, res) => {
         const pdfText = pdfData.text;
         console.log('Two');
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-        const header = "Provide me with 30 interview question and answers for the below resume data\n ";
+        const header = "Provide me with 30 interview question and answers for the below resume data also suggest some changes in the resume and provide me the final ATS Score out of 100\n ";
         const prompt = header+pdfText;
         const result = await model.generateContent(prompt);
         const response = await result.response;
